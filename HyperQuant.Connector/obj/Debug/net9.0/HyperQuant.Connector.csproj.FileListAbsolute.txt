@@ -1,0 +1,11 @@
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\bin\Debug\net9.0\HyperQuant.Connector.deps.json
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\bin\Debug\net9.0\HyperQuant.Connector.dll
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\bin\Debug\net9.0\HyperQuant.Connector.pdb
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\HyperQuant.Connector.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\HyperQuant.Connector.AssemblyInfoInputs.cache
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\HyperQuant.Connector.AssemblyInfo.cs
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\HyperQuant.Connector.csproj.CoreCompileInputs.cache
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\HyperQuant.Connector.dll
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\refint\HyperQuant.Connector.dll
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\HyperQuant.Connector.pdb
+C:\Users\SeikaH\source\repos\HyperQuant.Connector\obj\Debug\net9.0\ref\HyperQuant.Connector.dll
