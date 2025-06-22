@@ -1,0 +1,24 @@
+{
+  "currencies": [
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "amount": 1.0
+    },
+    {
+      "symbol": "XRP",
+      "name": "Ripple",
+      "amount": 15000.0
+    },
+    {
+      "symbol": "XMR",
+      "name": "Monero",
+      "amount": 50.0
+    },
+    {
+      "symbol": "DASH",
+      "name": "Dash",
+      "amount": 30.0
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+﻿<Window x:Class="HyperQuantTestTask.WebSocketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WebSocket Real-time Data" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель управления -->
+        <Border Grid.Row="0" Background="LightGray" Padding="10" Margin="5">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Content="Trading Pair:" VerticalAlignment="Center" Width="100"/>
+                    <TextBox x:Name="PairTextBox" Text="tBTCUSD" Width="100" VerticalAlignment="Center" Margin="5,0"/>
+                    <Button x:Name="ConnectButton" Content="Получить" Width="80" Height="30" Margin="10,0" Click="ConnectButton_Click"/>
+                    <Button x:Name="DisconnectButton" Content="Отключиться" Width="80" Height="30" Margin="5,0" Click="DisconnectButton_Click" IsEnabled="False"/>
+                    <TextBlock x:Name="ConnectionStatusText" Text="Disconnected" VerticalAlignment="Center" Margin="20,0" FontWeight="Bold" Foreground="Red"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="SubscribeTradesCheckBox" Content="Подписаться на сделки" IsChecked="True" Margin="10,0" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="SubscribeCandlesCheckBox" Content="Подписаться на свечи" IsChecked="True" Margin="10,0" VerticalAlignment="Center"/>
+                    <Button x:Name="ClearDataButton" Content="Очистить данные" Width="80" Height="30" Margin="20,0" Click="ClearDataButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Основной контент -->
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Trades Section -->
+            <GroupBox Grid.Column="0" Header="Сделки" Margin="0,0,2,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Сделки на покупку: " FontWeight="Bold" Foreground="Green"/>
+                        <TextBlock x:Name="BuyTradesCountText" Text="0" FontWeight="Bold" Foreground="Green"/>
+                        <TextBlock Text=" | Сделки на продажу: " FontWeight="Bold" Foreground="Red" Margin="10,0,0,0"/>
+                        <TextBlock x:Name="SellTradesCountText" Text="0" FontWeight="Bold" Foreground="Red"/>
+                    </StackPanel>
+
+                    <ListView x:Name="TradesListView" Grid.Row="1" Margin="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Тип" Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type}" FontWeight="Bold">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Type}" Value="BUY">
+                                                                <Setter Property="Foreground" Value="Green"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Type}" Value="SELL">
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Время" Width="100" DisplayMemberBinding="{Binding Time, StringFormat=HH:mm:ss}"/>
+                                <GridViewColumn Header="Цена" Width="80" DisplayMemberBinding="{Binding Price, StringFormat=F2}"/>
+                                <GridViewColumn Header="Количество" Width="80" DisplayMemberBinding="{Binding Amount, StringFormat=F4}"/>
+                                <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="Gray"/>
+
+            <!-- Candles Section -->
+            <GroupBox Grid.Column="2" Header="Свечи" Margin="2,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Свечей получено: " FontWeight="Bold"/>
+                        <TextBlock x:Name="CandlesCountText" Text="0" FontWeight="Bold" Foreground="Blue"/>
+                        <TextBlock Text=" | Время: 1m" FontWeight="Bold" Margin="10,0,0,0"/>
+                    </StackPanel>
+
+                    <ListView x:Name="CandlesListView" Grid.Row="1" Margin="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Время" Width="100" DisplayMemberBinding="{Binding OpenTime, StringFormat=HH:mm:ss}"/>
+                                <GridViewColumn Header="Открытие" Width="70" DisplayMemberBinding="{Binding OpenPrice, StringFormat=F2}"/>
+                                <GridViewColumn Header="Наивысшие" Width="70" DisplayMemberBinding="{Binding HighPrice, StringFormat=F2}"/>
+                                <GridViewColumn Header="Нисшие" Width="70" DisplayMemberBinding="{Binding LowPrice, StringFormat=F2}"/>
+                                <GridViewColumn Header="Закрытие" Width="70" DisplayMemberBinding="{Binding ClosePrice, StringFormat=F2}"/>
+                                <GridViewColumn Header="Объем" Width="80" DisplayMemberBinding="{Binding TotalVolume, StringFormat=F4}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <!-- Статус бар -->
+        <StatusBar Grid.Row="2" Height="25">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Готово"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="LastUpdateText" Text="Последнее обновление: -"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
